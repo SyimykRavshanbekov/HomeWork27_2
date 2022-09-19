@@ -1,99 +1,100 @@
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
+        String word = "null";
         int mainCounter = 0;
+        while(!word.equals("qwerty")) {
+            try {
+                System.out.println("\nEnter 'qwerty' to exit \nWrite numbers: ");
+                word = scanner.nextLine();
+                String[] array = new String[2];
+                String operation = "null";
+
+                if (word.contains("+")) {
+                    array = word.split("\\+");
+                    operation = "+";
+                } else if (word.contains("-")) {
+                    array = word.split("-");
+                    operation = "-";
+                } else if (word.contains("*")) {
+                    operation = "*";
+                    array = word.split("\\*");
+                } else if (word.contains("/")) {
+                    operation = "/";
+                    array = word.split("/");
+                }
 
 
-        System.out.println("Write numbers: ");
-        String word = scanner.nextLine();
-        String[] array = new String[2];
-        String operation = "null";
+                String number1 = array[0];
+                String number2 = array[1];
+
+                int counter1 = 0;
+                int counter2 = 0;
+                int counter3 = 0;
+                int counter4 = 0;
+                for (int i = 0; i < number1.length(); i++) {
+                    if (number1.charAt(i) == 'X' || number1.charAt(i) == 'I' || number1.charAt(i) == 'V') {
+                        counter1++;
+                    }
+                    if (Character.isDigit(number1.charAt(i))) {
+                        counter3++;
+                    }
+                }
+                for (int i = 0; i < number2.length(); i++) {
+                    if (number2.charAt(i) == 'X' || number2.charAt(i) == 'I' || number2.charAt(i) == 'V') {
+                        counter2++;
+                    }
+                    if (Character.isDigit(number2.charAt(i))) {
+                        counter4++;
+                    }
+                }
+
+                if (counter1 == number1.length() && counter2 == number2.length()) {
+                    mainCounter++;
+                    int num1 = romanNumber(number1);
+                    int num2 = romanNumber(number2);
+                    if (num1 > 0 && num2 > 0) {
+                        switch (operation) {
+                            case "+" -> System.out.println("Answer: " + convertIntegerToRoman(num1 + num2));
+                            case "-" -> System.out.println("Answer: " + convertIntegerToRoman(num1 - num2));
+                            case "*" -> System.out.println("Answer: " + convertIntegerToRoman(num1 * num2));
+                            case "/" -> System.out.println("Answer: " + convertIntegerToRoman(num1 / num2));
+                            default -> System.out.println("Wrong operation");
+                        }
+                    } else {
+                        throw new RuntimeException();
+                    }
+                }
 
 
-        if(word.contains("+")){
-            array = word.split("\\+");
-            operation = "+";
-        } else if (word.contains("-")) {
-            array = word.split("-");
-            operation = "-";
-        } else if (word.contains("*")){
-            operation = "*";
-            array = word.split("\\*");
-        } else if (word.contains("/")) {
-            operation = "/";
-            array = word.split("/");
-        }
+                if (counter3 == number1.length() && counter4 == number2.length()) {
+                    mainCounter++;
+                    int num1 = Integer.parseInt(number1);
+                    int num2 = Integer.parseInt(number2);
 
-
-        String number1 = array[0];
-        String number2 = array[1];
-
-        int counter1 = 0;
-        int counter2 = 0;
-        int counter3 = 0;
-        int counter4 = 0;
-        for (int i = 0; i < number1.length(); i++) {
-            if (number1.charAt(i) == 'X' || number1.charAt(i) == 'I' || number1.charAt(i) == 'V') {
-                counter1++;
-            }
-            if (Character.isDigit(number1.charAt(i))){
-                counter3++;
-            }
-        }
-        for (int i = 0; i < number2.length(); i++) {
-            if (number2.charAt(i) == 'X' || number2.charAt(i) == 'I' || number2.charAt(i) == 'V') {
-                counter2++;
-            }
-            if (Character.isDigit(number2.charAt(i))){
-                counter4++;
-            }
-        }
-
-        if (counter1 == number1.length() && counter2 == number2.length()){
-            mainCounter++;
-            int num1 = romanNumber(number1);
-            int num2 = romanNumber(number2);
-                if (num1 > 0 && num2 > 0) {
                     switch (operation) {
-                        case "+" -> System.out.println("Answer: " + convertIntegerToRoman(num1 + num2));
-                        case "-" -> System.out.println("Answer: " + convertIntegerToRoman(num1 - num2));
-                        case "*" -> System.out.println("Answer: " + convertIntegerToRoman(num1 * num2));
-                        case "/" -> System.out.println("Answer: " + convertIntegerToRoman(num1 / num2));
+                        case "+" -> System.out.println("Answer: " + (num1 + num2));
+                        case "-" -> System.out.println("Answer: " + (num1 - num2));
+                        case "*" -> System.out.println("Answer: " + (num1 * num2));
+                        case "/" -> System.out.println("Answer: " + (num1 / num2));
                         default -> System.out.println("Wrong operation");
                     }
-                } else {
+                }
+
+
+                if (mainCounter == 0) {
                     throw new RuntimeException();
                 }
-            }
-
-
-        if (counter3 == number1.length() && counter4 == number2.length()){
-            mainCounter++;
-            int num1 = Integer.parseInt(number1);
-            int num2 = Integer.parseInt(number2);
-
-            switch (operation) {
-                case "+" -> System.out.println("Answer: " + (num1 + num2));
-                case "-" -> System.out.println("Answer: " + (num1 - num2));
-                case "*" -> System.out.println("Answer: " + (num1 * num2));
-                case "/" -> System.out.println("Answer: " + (num1 / num2));
-                default -> System.out.println("Wrong operation");
+            } catch (RuntimeException e) {
+                System.out.println("Program over");
             }
         }
-
-        try{
-            if (mainCounter==0){
-                throw new RuntimeException();
-            }
-        } catch (RuntimeException e) {
-            System.out.println("Write only 'I, V, X' or '1, 2, 3, 4, 5, 6, 7, 8, 9, 0'");
-        }
-
-
     }
 
     static int romanNumber(String str) {
@@ -154,4 +155,5 @@ public class Main {
         }
         return roman.toString();
     }
+
 }
