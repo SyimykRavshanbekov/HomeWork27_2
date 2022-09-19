@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 public class Main {
@@ -6,10 +7,30 @@ public class Main {
 
         int mainCounter = 0;
 
-        System.out.println("Write number1: ");
-        String number1 = scanner.nextLine();
-        System.out.println("Write number2: ");
-        String number2 = scanner.nextLine();
+
+        System.out.println("Write numbers: ");
+        String word = scanner.nextLine();
+        String[] array = new String[2];
+        String operation = "null";
+
+
+        if(word.contains("+")){
+            array = word.split("\\+");
+            operation = "+";
+        } else if (word.contains("-")) {
+            array = word.split("-");
+            operation = "-";
+        } else if (word.contains("*")){
+            operation = "*";
+            array = word.split("\\*");
+        } else if (word.contains("/")) {
+            operation = "/";
+            array = word.split("/");
+        }
+
+
+        String number1 = array[0];
+        String number2 = array[1];
 
         int counter1 = 0;
         int counter2 = 0;
@@ -37,9 +58,6 @@ public class Main {
             int num1 = romanNumber(number1);
             int num2 = romanNumber(number2);
                 if (num1 > 0 && num2 > 0) {
-                    System.out.println("Choose operation (+ - / *)");
-                    String operation = scanner.nextLine();
-
                     switch (operation) {
                         case "+" -> System.out.println("Answer: " + convertIntegerToRoman(num1 + num2));
                         case "-" -> System.out.println("Answer: " + convertIntegerToRoman(num1 - num2));
@@ -57,9 +75,6 @@ public class Main {
             mainCounter++;
             int num1 = Integer.parseInt(number1);
             int num2 = Integer.parseInt(number2);
-
-            System.out.println("Choose operation (+ - / *)");
-            String operation = scanner.nextLine();
 
             switch (operation) {
                 case "+" -> System.out.println("Answer: " + (num1 + num2));
