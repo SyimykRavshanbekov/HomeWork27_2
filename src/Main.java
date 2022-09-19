@@ -9,14 +9,18 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String word = "null";
         int mainCounter = 0;
-        while(!word.equals("qwerty")) {
+
+        while (!word.equals("qwerty")) {
             try {
                 System.out.println("\nEnter 'qwerty' to exit \nWrite numbers: ");
                 word = scanner.nextLine();
                 String[] array = new String[2];
                 String operation = "null";
 
+                word = word.replaceAll(" ", "");
+
                 if (word.contains("+")) {
+                    word = word.trim();
                     array = word.split("\\+");
                     operation = "+";
                 } else if (word.contains("-")) {
@@ -29,7 +33,6 @@ public class Main {
                     operation = "/";
                     array = word.split("/");
                 }
-
 
                 String number1 = array[0];
                 String number2 = array[1];
@@ -141,14 +144,12 @@ public class Main {
     }
 
     static String convertIntegerToRoman(int num) {
-        int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
-        String[] romanLetters = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] romanLetters = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
 
         StringBuilder roman = new StringBuilder();
-        for(int i=0;i<values.length;i++)
-        {
-            while(num >= values[i])
-            {
+        for (int i = 0; i < values.length; i++) {
+            while (num >= values[i]) {
                 num = num - values[i];
                 roman.append(romanLetters[i]);
             }
